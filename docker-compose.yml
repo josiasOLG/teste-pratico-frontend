@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+      - '3001:3001'
+    environment:
+      NODE_ENV: production
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  db:
+    image: 'json-server:latest'
+    volumes:
+      - ./db/db.json:/data/db.json
+    command: ['json-server', '--watch', '/data/db.json', '--port', '3001']
+    ports:
+      - '3001:3001'
