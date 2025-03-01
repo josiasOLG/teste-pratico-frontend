@@ -1,36 +1,129 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Teste Prático Mobile
 
-## Getting Started
+Este é um projeto Next.js configurado com create-next-app.  
+Abaixo, segue um guia detalhado de como executar e testar o projeto em diferentes ambientes, incluindo Docker.
 
-First, run the development server:
+## Sumário
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **1. Tecnologias e Pré-requisitos**
+- **2. Instalação**
+- **3. Executando o Projeto**
+  - Ambiente de Desenvolvimento
+  - Ambiente de Produção
+- **4. Executando os Testes**
+- **5. Executando via Docker**
+- **6. Estrutura de Pastas**
+- **7. Outras Informações**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 1. Tecnologias e Pré-requisitos
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Node.js (16 ou superior)
+- npm, yarn ou pnpm para instalar dependências
+- Docker (opcional) caso deseje executar via contêiner
+- JSON Server incluso como dependência, rodando em http://localhost:3001
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 2. Instalação
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone o repositório.
+2. Entre na pasta do projeto.
+3. Instale as dependências usando npm, yarn ou pnpm (conforme sua preferência).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 3. Executando o Projeto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Ambiente de Desenvolvimento
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Execute o servidor de desenvolvimento Next.js e o JSON Server em paralelo (porta 3001):
+  - npm run dev
+  - yarn dev
+  - pnpm dev
+
+A aplicação estará disponível em http://localhost:3000  
+A API JSON Server estará em http://localhost:3001
+
+### Ambiente de Produção
+
+1. Gere o build:
+   - npm run build
+2. Inicie em modo produção:
+   - npm run start
+
+Este comando executa Next.js na porta 3000 e o JSON Server na 3001.
+
+---
+
+## 4. Executando os Testes
+
+- Executar testes sem cobertura:
+
+  - npm run test
+
+- Executar testes em modo watch:
+
+  - npm run test:watch
+
+- Gerar relatório de cobertura:
+
+  - npm run test:coverage
+
+- Limpar cache dos testes:
+  - npm run test:clear
+
+---
+
+## 5. Executando via Docker
+
+Há vários scripts para gerenciar contêineres:
+
+- docker:build: gera a imagem local teste-pratico-mobile
+- docker:run: executa a imagem, expondo portas 3000 (aplicação) e 3001 (JSON Server)
+- docker:dev: utiliza docker-compose para subir o ambiente em modo desenvolvimento
+- docker:stop: derruba os contêineres criados
+- docker:clean: remove contêineres, volumes e redes que não estejam em uso (pode ser destrutivo)
+- docker:logs: mostra os logs em tempo real dos contêineres em execução
+
+Exemplo de uso:
+
+1. Gera a imagem:
+   - npm run docker:build
+2. Executa a imagem localmente:
+   - npm run docker:run
+
+---
+
+## 6. Estrutura de Pastas
+
+.
+├─ .husky  
+├─ .next  
+├─ coverage  
+├─ db  
+│ └─ db.json  
+├─ node_modules  
+├─ public  
+├─ src  
+│ └─ …  
+├─ .env  
+├─ .env.local  
+├─ docker-compose.yml  
+├─ Dockerfile  
+├─ jest.config.ts  
+├─ package.json  
+├─ tsconfig.json  
+└─ etc.
+
+O arquivo db.json em db é consumido pelo JSON Server em http://localhost:3001
+
+---
+
+## 7. Outras Informações
+
+- Para variáveis de ambiente, utilize os arquivos .env, .env.local e outros
+- O projeto utiliza next/font para otimizar fontes e tailwind para estilos
+- Em caso de dúvidas ou contribuições, abra Issues ou Pull Requests
+- Consulte a documentação do Next.js para mais detalhes em https://nextjs.org/docs
